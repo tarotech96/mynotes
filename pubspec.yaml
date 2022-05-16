@@ -1,0 +1,56 @@
+name: learn_flutter
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.1 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  firebase_core: ^1.16.0
+  firebase_auth: ^3.3.17
+  cloud_firestore: ^3.1.14
+  firebase_analytics: ^9.1.7
+  google_sign_in: ^5.3.1
+  flutter_facebook_auth: ^4.3.4
+  twitter_login: ^4.2.3
+  flutter_dotenv: ^5.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+  # Environment variables
+    - .env.dev
+    - .env.prod
+
+  fonts:
+    - family: TwitterFont
+      fonts:
+        - asset: assets/fonts/TwitterFont.ttf
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/Raleway-VariableFont_wght.ttf
+          style: normal
+          weight: 700
+    - family: Montserrat
+      fonts: 
+        - asset: assets/fonts/Montserrat-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/Montserrat-VariableFont_wght.ttf
+          style: italic
+          weight: 700
+  
