@@ -1,16 +1,33 @@
-# learn_flutter
+# My Notes App
 
-A new Flutter project.
+## List commands
 
-## Getting Started
+- To add a package
 
-This project is a starting point for a Flutter application.
+    ```javascript
+      flutter pub add {packgage_name}
+    ```
 
-A few resources to get you started if this is your first Flutter project:
+- To get package
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+  ```javascript
+      flutter pub get
+  ```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- To run app
+
+  ```javascript
+      flutter run
+  ```
+
+- To clean package
+
+  ```javascript
+      flutter clean
+  ```
+
+## Related posts to learn flutter for beginner
+
+- [Write first flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook](https://docs.flutter.dev/cookbook)
+- [Flutter layout cheatsheet](https://medium.com/flutter-community/flutter-layout-cheat-sheet-5363348d037e)
