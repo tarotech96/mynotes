@@ -1,4 +1,4 @@
-name: learn_flutter
+name: mynotes
 description: A new Flutter project.
 
 publish_to: 'none' 
@@ -11,7 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_localizations: 
+    sdk: flutter
+# #enddocregion FlutterLocalizations
+  # intl: ^0.17.0
+# #enddocregion Intl
   cupertino_icons: ^1.0.2
   firebase_core: ^1.16.0
   firebase_auth: ^3.3.17
@@ -21,6 +25,8 @@ dependencies:
   flutter_facebook_auth: ^4.3.4
   twitter_login: ^4.2.3
   flutter_dotenv: ^5.0.2
+  file_picker: ^4.5.1
+  flutter_i18n: ^0.32.2
 
 dev_dependencies:
   flutter_test:
@@ -29,13 +35,19 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
 flutter:
-
+  # generate: true
   uses-material-design: true
 
   assets:
   # Environment variables
     - .env.dev
     - .env.prod
+  # Images
+    - assets/images/default_avatar.jpeg
+  # Load localization files
+    - assets/flutter_i18n/en.json
+    - assets/flutter_i18n/ja.json
+    - assets/flutter_i18n/vn.json
 
   fonts:
     - family: TwitterFont
@@ -53,4 +65,4 @@ flutter:
         - asset: assets/fonts/Montserrat-VariableFont_wght.ttf
           style: italic
           weight: 700
-  
+  generate: true

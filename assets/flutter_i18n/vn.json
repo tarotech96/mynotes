@@ -1,0 +1,41 @@
+{
+  "login_title": "Đăng nhập",
+  "login_button": "Đăng nhập",
+  "email_input_title": "Email",
+  "password_input_title": "Password",
+  "email_input_hint_text": "Vui lòng nhập địa chỉ email",
+  "password_input_hint_text": "Vui lòng nhập mật khẩu",
+  "text_link_to_register": "Bạn chưa đăng kí? Đăng kí tại đây",
+
+  "register_title": "Đăng kí",
+  "register_button": "Đăng kí",
+  "text_link_to_login": "Bạn đã đăng kí? Đăng nhập tại đây",
+
+  "app_title": "Note",
+  "hello": "Xin chào",
+
+  "menu_item_profile": "Thay đổi hồ sơ",
+  "menu_item_theme": "Thay đổi theme",
+  "menu_item_logout": "Đăng xuất",
+
+  "logout_dialog_title": "Đăng xuất",
+  "logout_dialog_content": "Bạn có chắc chắn muốn đăng xuất không?",
+  "logout_dialog_cancel_button": "Huỷ",
+  "logout_dialog_logout_button": "Đăng xuất",
+
+  "dialog_add_note_title": "Thêm ghi chú",
+  "dialog_add_note_input_title": "Tiêu đề",
+  "dialog_add_note_input_title_hint_text": "Vui lòng nhập tiêu đề",
+  "dialog_add_note_input_content": "Nội dung",
+  "dialog_add_note_input_content_hint_text": "Vui lòng nhập nội dung",
+  "dialog_add_note_cancel_button": "Huỷ",
+  "dialog_add_note_save_button": "Lưu",
+
+  "profile_title": "Hồ sơ cá nhân",
+  "profile_change_avatar_button": "Thay đổi avatar",
+  "profile_update_button": "Cập nhật",
+
+  "edit_note_title": "Chỉnh sửa Note",
+  "edit_note_cancel_button": "Huỷ",
+  "edit_note_update_button": "Cập nhật"
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/models/note_firebase.dart';
-import 'package:learn_flutter/views/edit_note_view.dart';
-import 'package:learn_flutter/views/render_notes_list.dart';
+import 'package:mynotes/services/note_firebase.dart';
+import 'package:mynotes/views/edit_note_view.dart';
+import 'package:mynotes/views/render_notes_list.dart';
 import 'dart:developer';
 
 class ListNotesView extends StatefulWidget {

@@ -1,18 +1,23 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // ignore: library_prefixes
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
-import 'package:learn_flutter/constants/routes.dart';
-import 'package:learn_flutter/firebase_options.dart';
-import 'package:learn_flutter/views/edit_note_view.dart';
-import 'package:learn_flutter/views/login_view.dart';
-import 'package:learn_flutter/views/notes_view.dart';
-import 'package:learn_flutter/views/register_view.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/firebase_options.dart';
+import 'package:mynotes/views/loading_view.dart';
+import 'package:mynotes/views/login_view.dart';
+import 'package:mynotes/views/notes_view.dart';
+import 'package:mynotes/views/register_view.dart';
+import 'package:mynotes/constants/languages.dart' as langs;
 
 void main() async {
   // Create a instance of the WidgetsBinding
-  // If want to use Flutter Engine so this setting is neccessary before call runApp() method
+  // If want to use Flutter Engine so this setting is necessary before call runApp() method
   WidgetsFlutterBinding.ensureInitialized();
 
   // Read environment variables
@@ -28,13 +33,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        FlutterI18nDelegate(
+            translationLoader: FileTranslationLoader(),
+            missingTranslationHandler: (key, locale) {
+              log(locale?.languageCode ?? '');
+              log('--Missing Key: $key languageCode: ${locale?.languageCode}');
+            }),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [
+        Locale(langs.langsCode['en'] ?? '', ''),
+        Locale(langs.langsCode['ja'] ?? '', ''),
+        Locale(langs.langsCode['vn'] ?? '', '')
+      ],
       home: const LoginScreen(),
       // theme: ThemeData(fontFamily: 'Montserrat', primarySwatch: Colors.purple),
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
-        notesRoute: (context) => const NotesView(),
-        updateNote: (context) => const EditNoteView()
+        notesRoute: (context) => const NotesView()
       },
     );
   }
@@ -54,16 +73,10 @@ class LoginScreen extends StatelessWidget {
           case ConnectionState.none:
             return Stack(
               children: const [
-                Center(
-                  child: SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: CircularProgressIndicator(
-                      color: Color.fromARGB(255, 255, 255, 254),
-                      strokeWidth: 2.0,
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
-                    ),
-                  ),
+                LoadingView(
+                  width: 30,
+                  height: 30,
+                  strokeWidth: 2.0,
                 ),
                 Center(
                   child: DefaultTextStyle(
@@ -84,7 +97,11 @@ class LoginScreen extends StatelessWidget {
               return const LoginView();
             }
           default:
-            return const Text('Not found app...');
+            return const LoadingView(
+              width: 50,
+              height: 50,
+              strokeWidth: 3.0,
+            );
         }
       },
     );

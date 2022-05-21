@@ -1,6 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/constants/routes.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/models/user_entity.dart';
+import 'package:mynotes/constants/languages.dart' as langs;
+import 'package:mynotes/services/user_firebase.dart';
 import 'dart:developer';
 
 class RegisterView extends StatefulWidget {
@@ -41,9 +45,9 @@ class _RegisterViewState extends State<RegisterView> {
                     'https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
                 fit: BoxFit.cover)),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text(
-            'Register',
-            style: TextStyle(
+          Text(
+            FlutterI18n.translate(context, langs.registerTitle),
+            style: const TextStyle(
                 color: Colors.purple,
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
@@ -63,9 +67,10 @@ class _RegisterViewState extends State<RegisterView> {
                       enableSuggestions: false,
                       autocorrect: false,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                          hintText: 'Enter your email here',
-                          border: OutlineInputBorder()),
+                      decoration: InputDecoration(
+                          hintText: FlutterI18n.translate(
+                              context, langs.emailInputHintText),
+                          border: const OutlineInputBorder()),
                     ),
                   ),
                 ],
@@ -87,9 +92,12 @@ class _RegisterViewState extends State<RegisterView> {
                         enableSuggestions: false,
                         autocorrect: false,
                         keyboardType: TextInputType.visiblePassword,
-                        decoration: const InputDecoration(
-                            hintText: 'Enter your password here',
-                            border: OutlineInputBorder())),
+                        decoration: InputDecoration(
+                            hintText: FlutterI18n.translate(
+                                context,
+                                FlutterI18n.translate(
+                                    context, langs.passwordInputHintText)),
+                            border: const OutlineInputBorder())),
                   ),
                 ],
               ),
@@ -108,13 +116,24 @@ class _RegisterViewState extends State<RegisterView> {
                         onPressed: () async {
                           final email = _email.text;
                           final password = _password.text;
+                          final userFirebase = UserFirebase();
 
                           try {
+                            // Create user credentials for authentication
                             final userCredentials = await FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
                               email: email,
                               password: password,
                             );
+
+                            final user = UserEntity(
+                                id: '',
+                                email: email,
+                                password: password,
+                                image: '',
+                                address: '');
+                            // Insert user into database
+                            await userFirebase.insert(user);
 
                             if (userCredentials.user != null) {
                               Navigator.of(context).pushNamedAndRemoveUntil(
@@ -132,9 +151,9 @@ class _RegisterViewState extends State<RegisterView> {
                             }
                           }
                         },
-                        child: const Text(
-                          'Register',
-                          style: TextStyle(fontSize: 20),
+                        child: Text(
+                          FlutterI18n.translate(context, langs.registerButton),
+                          style: const TextStyle(fontSize: 20),
                         )),
                   ),
                 ],
@@ -146,7 +165,10 @@ class _RegisterViewState extends State<RegisterView> {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(loginRoute, (route) => false);
             },
-            child: const Text('Already registered? Login here'),
+            child: Text(
+              FlutterI18n.translate(context, langs.textLinkToLogin),
+              style: const TextStyle(decoration: TextDecoration.underline),
+            ),
           )
         ]),
       ),

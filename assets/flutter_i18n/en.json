@@ -1,0 +1,41 @@
+{
+  "login_title": "Login",
+  "login_button": "Login",
+  "email_input_title": "Email",
+  "password_input_title": "Password",
+  "email_input_hint_text": "Please enter your email here",
+  "password_input_hint_text": "Please enter your password here",
+  "text_link_to_register": "Not registered yet? Register here",
+
+  "register_title": "Register",
+  "register_button": "Register",
+  "text_link_to_login": "Already registered? Login here",
+
+  "app_title": "Note",
+  "hello": "Hello",
+
+  "menu_item_profile": "Update Profile",
+  "menu_item_theme": "Change Theme",
+  "menu_item_logout": "Logout",
+
+  "logout_dialog_title": "Sign Out",
+  "logout_dialog_content": "Are you sure you want to sign out?",
+  "logout_dialog_cancel_button": "Cancel",
+  "logout_dialog_logout_button": "Sign out",
+
+  "dialog_add_note_title": "Add Note",
+  "dialog_add_note_input_title": "Title",
+  "dialog_add_note_input_title_hint_text": "Please enter title here",
+  "dialog_add_note_input_content": "Content",
+  "dialog_add_note_input_content_hint_text": "Please enter content here",
+  "dialog_add_note_cancel_button": "Cancel",
+  "dialog_add_note_save_button": "Save",
+
+  "profile_title": "Profile",
+  "profile_change_avatar_button": "Change Avatar",
+  "profile_update_button": "Update",
+
+  "edit_note_title": "Edit Note",
+  "edit_note_cancel_button": "Cancel",
+  "edit_note_update_button": "Update"
+}

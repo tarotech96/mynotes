@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/constants/routes.dart';
-import 'package:learn_flutter/models/note.dart';
-
-import '../models/note_firebase.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/models/note_entity.dart';
+import '../services/note_firebase.dart';
+import 'package:mynotes/constants/languages.dart' as langs;
+import 'dart:developer';
 import 'notes_view.dart';
 
 const c1 = 0xFFFDFFFC,
@@ -34,7 +34,7 @@ class _EditNoteViewState extends State<EditNoteView> {
         TextEditingController(text: noteItem['content']);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit'),
+        title: Text(FlutterI18n.translate(context, langs.editNoteTitle)),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -90,9 +90,10 @@ class _EditNoteViewState extends State<EditNoteView> {
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil(notesRoute, (_) => false);
                   },
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Text(
+                    FlutterI18n.translate(context, langs.editNoteCancelButton),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.orange, onPrimary: Colors.white),
@@ -107,7 +108,7 @@ class _EditNoteViewState extends State<EditNoteView> {
                 child: ElevatedButton(
                   onPressed: () async {
                     final noteFirebase = NoteFirebase();
-                    final note = Note(
+                    final note = NoteEntity(
                         id: noteItem['id'],
                         title: _title.text,
                         content: _content.text);
@@ -125,9 +126,10 @@ class _EditNoteViewState extends State<EditNoteView> {
                       log('Something went wrong...');
                     }
                   },
-                  child: const Text(
-                    'Edit',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Text(
+                    FlutterI18n.translate(context, langs.editNoteUpdateButton),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blue,

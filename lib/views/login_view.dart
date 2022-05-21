@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/auth/auth_firebase.dart';
-import 'package:learn_flutter/constants/routes.dart';
-import 'package:learn_flutter/my-icons/twitter_icon.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:mynotes/auth/auth_firebase.dart';
+import 'package:mynotes/constants/languages.dart' as langs;
+import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/my-icons/twitter_icon.dart';
 import 'dart:developer';
 
-enum Provider { google, facebook, twitter }
+// ignore_for_file: constant_identifier_names
+enum Provider { GOOGLE, FACEBOOK, TWITTER }
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -34,21 +37,22 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    void handleLogin({required context, required provider}) async {
+    void handleLoginWithProvider(
+        {required BuildContext context, required Provider provider}) async {
       log('Start login with $provider ...');
       final authentication = Authentication();
       try {
         late final UserCredential userCredential;
         switch (provider) {
-          case Provider.google:
+          case Provider.GOOGLE:
             userCredential =
                 await authentication.signInWithGoogle(context: context);
             break;
-          case Provider.facebook:
+          case Provider.FACEBOOK:
             userCredential =
                 await authentication.signInWithFacebook(context: context);
             break;
-          case Provider.twitter:
+          case Provider.TWITTER:
             userCredential =
                 await authentication.signInWithTwitter(context: context);
             break;
@@ -70,7 +74,15 @@ class _LoginViewState extends State<LoginView> {
       }
     }
 
+    void handleChangeLanguage(
+        {required BuildContext context, required String langCode}) async {
+      log(langCode);
+      await FlutterI18n.refresh(context, Locale(langCode, ''));
+      setState(() {});
+    }
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -81,9 +93,9 @@ class _LoginViewState extends State<LoginView> {
                     'https://images.pexels.com/photos/733852/pexels-photo-733852.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
                 fit: BoxFit.cover)),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text(
-            'Login',
-            style: TextStyle(
+          Text(
+            FlutterI18n.translate(context, langs.loginTitle),
+            style: const TextStyle(
                 color: Colors.purple,
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
@@ -101,8 +113,8 @@ class _LoginViewState extends State<LoginView> {
                       width: 250,
                       height: 50,
                       child: ElevatedButton.icon(
-                        onPressed: () => handleLogin(
-                            context: context, provider: Provider.google),
+                        onPressed: () => handleLoginWithProvider(
+                            context: context, provider: Provider.GOOGLE),
                         icon: Image.network(
                           'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png',
                           width: 20,
@@ -121,8 +133,8 @@ class _LoginViewState extends State<LoginView> {
                       width: 250,
                       height: 50,
                       child: ElevatedButton.icon(
-                        onPressed: () => handleLogin(
-                            context: context, provider: Provider.facebook),
+                        onPressed: () => handleLoginWithProvider(
+                            context: context, provider: Provider.FACEBOOK),
                         icon: const Icon(Icons.facebook_sharp),
                         label: const Text('Continue with Facebook'),
                         style: ElevatedButton.styleFrom(
@@ -136,8 +148,8 @@ class _LoginViewState extends State<LoginView> {
                       width: 250,
                       height: 50,
                       child: ElevatedButton.icon(
-                        onPressed: () => handleLogin(
-                            context: context, provider: Provider.twitter),
+                        onPressed: () => handleLoginWithProvider(
+                            context: context, provider: Provider.TWITTER),
                         icon: const Icon(TwitterIcon.twitterBird),
                         label: const Text('Continue with Twitter'),
                         style: ElevatedButton.styleFrom(
@@ -159,9 +171,10 @@ class _LoginViewState extends State<LoginView> {
                 enableSuggestions: false,
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                    hintText: 'Enter your email here',
-                    border: OutlineInputBorder()),
+                decoration: InputDecoration(
+                    hintText: FlutterI18n.translate(
+                        context, langs.emailInputHintText),
+                    border: const OutlineInputBorder()),
               ),
             ),
           ),
@@ -176,9 +189,10 @@ class _LoginViewState extends State<LoginView> {
                   enableSuggestions: false,
                   autocorrect: false,
                   keyboardType: TextInputType.visiblePassword,
-                  decoration: const InputDecoration(
-                      hintText: 'Enter your password here',
-                      border: OutlineInputBorder())),
+                  decoration: InputDecoration(
+                      hintText: FlutterI18n.translate(
+                          context, langs.passwordInputHintText),
+                      border: const OutlineInputBorder())),
             ),
           ),
           Padding(
@@ -209,9 +223,9 @@ class _LoginViewState extends State<LoginView> {
                       await showErrorDialog(context, 'Error: $e.toString()');
                     }
                   },
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(fontSize: 20),
+                  child: Text(
+                    FlutterI18n.translate(context, langs.loginButton),
+                    style: const TextStyle(fontSize: 20),
                   )),
             ),
           ),
@@ -222,9 +236,34 @@ class _LoginViewState extends State<LoginView> {
                 (_) => false,
               );
             },
-            child: const Text('Not registered yet? Register here'),
-          )
+            child: Text(
+              FlutterI18n.translate(context, langs.textLinkToRegister),
+              style: const TextStyle(decoration: TextDecoration.underline),
+            ),
+          ),
         ]),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 0,
+        color: Colors.transparent,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+                onPressed: () => handleChangeLanguage(
+                    context: context, langCode: langs.langsCode['en'] ?? ''),
+                child: const Text('English')),
+            TextButton(
+                onPressed: () => handleChangeLanguage(
+                    context: context, langCode: langs.langsCode['ja'] ?? ''),
+                child: const Text('Japanese')),
+            TextButton(
+                onPressed: () => handleChangeLanguage(
+                    context: context, langCode: langs.langsCode['vn'] ?? ''),
+                child: const Text('Vietnamese'))
+          ],
+        ),
       ),
     );
   }

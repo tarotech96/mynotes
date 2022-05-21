@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/models/note.dart';
-import 'package:learn_flutter/models/note_firebase.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:mynotes/models/note_entity.dart';
+import 'package:mynotes/services/note_firebase.dart';
+import 'package:mynotes/constants/languages.dart' as langs;
 import 'dart:developer' as devtools show log;
 
-import 'package:learn_flutter/views/notes_view.dart';
+import 'package:mynotes/views/notes_view.dart';
 
 const c0 = 0xff123456,
     c1 = 0xFFFDFFFC,
@@ -31,7 +33,7 @@ class _AddNoteViewState extends State<AddNoteView> {
         Icons.add,
         color: Color(c5),
       ),
-      tooltip: 'New Note',
+      tooltip: 'ノート追加',
       backgroundColor: const Color(c4),
       onPressed: () async => await showDialogAddNote(context),
     );
@@ -47,7 +49,8 @@ Future<bool> showDialogAddNote(BuildContext context) async {
   return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            title: const Text('Add Note'),
+            title:
+                Text(FlutterI18n.translate(context, langs.dialogAddNoteTitle)),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             content: Form(
@@ -61,8 +64,11 @@ Future<bool> showDialogAddNote(BuildContext context) async {
                   children: [
                     TextFormField(
                       controller: _title,
-                      decoration: const InputDecoration(
-                          labelText: "Title", hintText: "Enter title"),
+                      decoration: InputDecoration(
+                          labelText: FlutterI18n.translate(
+                              context, langs.dialogAddNoteInputTitle),
+                          hintText: FlutterI18n.translate(
+                              context, langs.dialogAddNoteInputTitleHintText)),
                       validator: (value) {
                         if (value == null) {
                           return "Please enter title";
@@ -75,12 +81,15 @@ Future<bool> showDialogAddNote(BuildContext context) async {
                     ),
                     TextFormField(
                       controller: _content,
-                      decoration: const InputDecoration(
-                          labelText: "Content", hintText: "Enter content"),
-                      maxLines: 10,
+                      decoration: InputDecoration(
+                          labelText: FlutterI18n.translate(
+                              context, langs.dialogAddNoteInputContent),
+                          hintText: FlutterI18n.translate(context,
+                              langs.dialogAddNoteInputContentHintText)),
+                      maxLines: 9,
                       validator: (value) {
                         if (value == null) {
-                          return "Please enter title";
+                          return "Please enter content";
                         }
                         return null;
                       },
@@ -97,14 +106,15 @@ Future<bool> showDialogAddNote(BuildContext context) async {
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
-                child: const Text('Cancel'),
+                child: Text(FlutterI18n.translate(
+                    context, langs.dialogAddNoteCancelButton)),
                 style: ElevatedButton.styleFrom(
                     primary: Colors.red, onPrimary: Colors.white),
               ),
               ElevatedButton(
                 onPressed: () async {
                   final noteFirebase = NoteFirebase();
-                  var note = Note(
+                  var note = NoteEntity(
                     title: _title.text,
                     content: _content.text,
                   );
@@ -122,7 +132,8 @@ Future<bool> showDialogAddNote(BuildContext context) async {
                     devtools.log('Something went wrong...');
                   }
                 },
-                child: const Text('Save'),
+                child: Text(FlutterI18n.translate(
+                    context, langs.dialogAddNoteSaveButton)),
                 style: ElevatedButton.styleFrom(
                     primary: Colors.blue, onPrimary: Colors.white),
               )

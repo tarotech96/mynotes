@@ -1,19 +1,19 @@
-class User {
-  // Reason why id is optional field, because of  identification of the object in firebase will be generated automatically -> docId
-  // we'll use that docId for userId in the future
-  String? id;
+class UserEntity {
+  String id;
   String email;
   String password;
   String image;
   String address;
 
-  User(
-      {required this.email,
+  UserEntity(
+      {required this.id,
+      required this.email,
       required this.password,
       required this.image,
       required this.address});
 
-  factory User.fromMap(Map<String, dynamic> json) => User(
+  factory UserEntity.fromMap(Map<String, dynamic> json) => UserEntity(
+      id: json['id'],
       email: json['email'],
       password: json['password'],
       image: json['image'],
@@ -21,6 +21,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> user = {};
+    user['id'] = id;
     user['email'] = email;
     user['password'] = password;
     user['image'] = image;

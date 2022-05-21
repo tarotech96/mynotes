@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:learn_flutter/models/note.dart';
+import 'package:mynotes/models/note_entity.dart';
 import 'dart:developer';
 
 class NoteFirebase {
@@ -37,15 +37,15 @@ class NoteFirebase {
   }
 
   /// insert a note into database
-  Future<Note> insert(Note note) async {
+  Future<NoteEntity> insert(NoteEntity note) async {
     log('insert a note into database...');
     final docRef = await db.collection('notes').add(note.toMap());
     final docId = docRef.id;
-    return Note(id: docId, title: note.title, content: note.content);
+    return NoteEntity(id: docId, title: note.title, content: note.content);
   }
 
   /// update a note by id
-  Future<bool> update(Note note) async {
+  Future<bool> update(NoteEntity note) async {
     log('update a note in database by id');
     return await db
         .collection('notes')

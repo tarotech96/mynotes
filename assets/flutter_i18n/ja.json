@@ -1,0 +1,41 @@
+{
+  "login_title": "ログイン",
+  "login_button": "ログイン",
+  "email_input_title": "メールアドレス",
+  "password_input_title": "パスワード",
+  "email_input_hint_text": "メールアドレスを入力してください",
+  "password_input_hint_text": "パスワードを入力してください",
+  "text_link_to_register": "アカウントをお持ちのない方はこちら",
+
+  "register_title": "新規登録",
+  "register_button": "登録",
+  "text_link_to_login": "登録済みの場合はこちら",
+
+  "app_title": "ノート",
+  "hello": "こんにちは",
+
+  "menu_item_profile": "プロフィール編集",
+  "menu_item_theme": "テーマ変更",
+  "menu_item_logout": "ログアウト",
+
+  "logout_dialog_title": "ログアウト",
+  "logout_dialog_content": "ログアウトします。よろしいでしょうか？",
+  "logout_dialog_cancel_button": "キャンセル",
+  "logout_dialog_logout_button": "ログアウト",
+
+  "dialog_add_note_title": "ノート追加",
+  "dialog_add_note_input_title": "タイトル",
+  "dialog_add_note_input_title_hint_text": "タイトルを入力してください",
+  "dialog_add_note_input_content": "コンテンツ",
+  "dialog_add_note_input_content_hint_text": "コンテンツを入力してください",
+  "dialog_add_note_cancel_button": "キャンセル",
+  "dialog_add_note_save_button": "保存",
+
+  "profile_title": "プロフィール",
+  "profile_change_avatar_button": "アバター変更",
+  "profile_update_button": "更新",
+
+  "edit_note_title": "ノート編集",
+  "edit_note_cancel_button": "キャンセル",
+  "edit_note_update_button": "更新"
+}

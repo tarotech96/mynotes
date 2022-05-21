@@ -1,4 +1,4 @@
-class Note {
+class NoteEntity {
   // id of the note
   // ignore: prefer_typing_uninitialized_variables
   String? id;
@@ -7,10 +7,10 @@ class Note {
   // content of the note
   String content;
 
-  Note({this.id, required this.title, required this.content});
+  NoteEntity({this.id, required this.title, required this.content});
 
-  factory Note.fromMap(Map<String, dynamic> json) =>
-      Note(title: json['title'], content: json['content']);
+  factory NoteEntity.fromMap(Map<String, dynamic> json) =>
+      NoteEntity(title: json['title'], content: json['content']);
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {};
